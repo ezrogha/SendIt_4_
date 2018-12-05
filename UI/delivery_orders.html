@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SendIT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/delivery_orders.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./admin/css/dialog.css" />
+  <script src="js/fetchscripts/redirect_out.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/delivery_orders.js"></script>
+  <script src="js/fetchscripts/fetch_user_orders.js"></script>
+</head>
+
+<body>
+  <div class="dlg-wrapper-edit">
+    <div class="dlg-box-edit">
+      <div class="dlg-header">
+        Order: <span>0182</span>
+        <span style="float: right">Date:</span>
+      </div>
+      <div class="dlg-body-edit">
+        <div>
+          <span>From:</span>
+          <select disabled id="from-edit">
+            <option>Kampala, Uganda</option>
+          </select>
+          <span> To:</span>
+          <select id="to-edit">
+            <option value="Mbale, Uganda">Mbale, Uganda</option>
+            <option value="Kampala, Uganda">Kampala, Uganda</option>
+            <option value="Mbarara, Uganda">Mbarara, Uganda</option>
+            <option value="Gulu, Uganda">Gulu, Uganda</option>
+            <option value="Nairobi, Kenya">Nairobi, Kenya</option>
+            <option value="Kisumu, Kenya">Kisumu, Kenya</option>
+            <option value="Dar es salaam, Tanzania">Dar es salaam, Tanzania</option>
+            <option value="Dodoma, Tanzania">Dodoma, Tanzania</option>
+          </select>
+        </div>
+        <div>
+          <span>Weight (in Kg): </span>
+          <input value="1.2" size="5" disabled id="weight-edit" />
+          <span>Price (in USD):</span>
+          <input value="32" size="5" disabled id="price-edit" />
+        </div>
+        <div>
+          <span>Status: </span>
+          <select id="status-edit">
+            <option>Not Delivered</option>
+          </select>
+        </div>
+        <div>
+          <span>Current location: </span>
+          <input value="" disabled id="location-edit" />
+        </div>
+      </div>
+      <div class="dlg-footer">
+        <button class="btn">Cancel</button>
+        <a href="#" class="btn a">Save</a>
+        <button class="btn">Cancel Order</button>
+        <button class="btn">Make Order</button>
+      </div>
+    </div>
+  </div>
+  <!-- In transit -->
+  <!-- <div class="dlg-wrapper-transit">
+    <div class="dlg-box-transit">
+      <div class="dlg-header">
+        <span>Edit Order: 0182</span>
+        <span style="float: right">Date:</span>
+      </div>
+      <div class="dlg-body-transit">
+        <div>
+          <span>From:</span>
+          <select disabled id="from-transit">
+            <option>Kampala, Uganda</option>
+          </select>
+          <span> To:</span>
+          <select id="to-transit">
+            <option value="Mbale, Uganda">Mbale, Uganda</option>
+            <option value="Kampala, Uganda">Kampala, Uganda</option>
+            <option value="Mbarara, Uganda">Mbarara, Uganda</option>
+            <option value="Gulu, Uganda">Gulu, Uganda</option>
+            <option value="Nairobi, Kenya">Nairobi, Kenya</option>
+            <option value="Kisumu, Kenya">Kisumu, Kenya</option>
+            <option value="Dar es salaam, Tanzania">Dar es salaam, Tanzania</option>
+            <option value="Dodoma, Tanzania">Dodoma, Tanzania</option>
+          </select>
+        </div>
+        <div>
+          <span>Weight (in Kg): </span>
+          <input value="1.2" size="5" disabled id="weight-transit" />
+          <span>Price (in USD):</span>
+          <input value="32" size="5" disabled id="price-transit" />
+        </div>
+        <div>
+          <span>Status: </span>
+          <select id="status-transit">
+            <option>Not Delivered</option>
+          </select>
+        </div>
+        <div>
+          <span>Current location: </span>
+          <input value="" disabled id="location-transit" />
+        </div>
+      </div>
+      <div class="dlg-footer">
+        <button class="btn">Cancel</button>
+        <a href="#" class="btn a">Save</a>
+        <button class="btn">Cancel Order</button>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="dlg-wrapper">
+    <div class="dlg-box">
+      <div class="dlg-header">
+        Order: <span>0182</span>
+        <span style="float: right">Date:</span>
+      </div>
+      <div class="dlg-body">
+        <div>
+          <span>From:</span>
+          <select disabled id="from">
+            <option>Kampala, Uganda</option>
+          </select>
+          <span> To:</span>
+          <select disabled id="to">
+            <option>Mbale, Uganda</option>
+          </select>
+        </div>
+        <div>
+          <span>Weight (in Kg): </span>
+          <input value="1.2" size="5" disabled id="weight" />
+          <span>Price (in USD):</span>
+          <input value="32" size="5" disabled id="price" />
+        </div>
+        <div>
+          <span>Status: </span>
+          <select disabled id="status">
+            <option>Delivered</option>
+          </select>
+        </div>
+        <div>
+          <span>Current location: </span>
+          <input value="" disabled id="location" />
+        </div>
+      </div>
+      <div class="dlg-footer">
+        <button class="btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <nav>
+      <a href="order.html"><img src="images/nav_logo.png" class="logo" /></a>
+      <ul>
+        <li>
+          <a href="order.html">Home</a>
+        </li>
+        <li>
+          <a href="delivery_orders.html" class="active-link">Delivery Orders</a>
+        </li>
+        <li>
+          <a href="index.html" id="signout">Signout</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="order-list">
+      <div class="search-box">
+        <input type="text" placeholder="Search for Orders" />
+        <button>
+          Search
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+      <div class="header">
+        <div class="hdr-item">OrderId</div>
+        <div class="hdr-item">From</div>
+        <div class="hdr-item"><span class="to">To</span><span class="dest">Destination</span></div>
+        <div class="hdr-item">Weight <span class="kg">(in kg)</span></div>
+        <div class="hdr-item">Price (USD)</div>
+        <div class="hdr-item">
+          <div class="status">
+            <button>
+              Status
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <ul class="dropdown">
+              <li class="all">All Orders</li>
+              <li class="delivered">Delivered</li>
+              <li class="in-transit">In Transit</li>
+              <li class="not-delivered">Not Delivered</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="list-item item-not-delivered">
+        <div class="list-col">0182</div>
+        <div class="list-col">Kampala, Uganda</div>
+        <div class="list-col">Kisumu, Kenya</div>
+        <div class="list-col">1.5</div>
+        <div class="list-col">32</div>
+        <div class="list-col not">Not Delivered</div>
+      </div> -->
+    </div>
+  </div>
+  <script src="js/fetchscripts/change_destination.js"></script>
+  <script src="js/fetchscripts/cancel_order.js"></script>
+  <script src="js/fetchscripts/make_order_after_cancel.js"></script>
+  <script src="js/fetchscripts/logout.js"></script>
+</body>
+
+</html>

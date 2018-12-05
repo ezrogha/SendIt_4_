@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SendIT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+  <link rel="stylesheet" type="text/css" media="screen" href="css/order.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="css/dialog.css" />
+  <script src="js/fetchscripts/redirect_out.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/order.js"></script>
+  <script src="js/fetchscripts/make_order.js"></script>
+</head>
+
+<body>
+  <div id="dlg-wrapper">
+    <div id="dlg-box">
+      <div id="dlg-header">
+        Delivery Price
+      </div>
+      <div id="dlg-body">
+        Your Delivery Order Will Cost:
+        <span>USD <span id="price"></span></span>
+      </div>
+      <div id="dlg-footer">
+        <button class="btn">Cancel</button>
+        <a href="./delivery_orders.html" class="btn">Proceed</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <nav>
+      <a href="order.html"><img src="images/nav_logo.png" class="logo" /></a>
+      <ul>
+        <li>
+          <a href="order.html" class="active-link">Home</a>
+        </li>
+        <li>
+          <a href="delivery_orders.html">Delivery Orders</a>
+        </li>
+        <li>
+          <a href="index.html" id="signout">Signout</a>
+        </li>
+      </ul>
+    </nav>
+    <div>
+    <h1>Send Your Parcel
+      <span>Quick</span> &
+      <span>Easy</span>
+    </h1>
+    <div class="form-box">
+      <span class="from">From: </span>
+      <select id="to">
+        <option value="Kampala, Uganda">Kampala, Uganda</option>
+        <option value="Mbarara, Uganda">Mbarara, Uganda</option>
+        <option value="Gulu, Uganda">Gulu, Uganda</option>
+        <option value="Nairobi, Kenya">Nairobi, Kenya</option>
+        <option value="Kisumu, Kenya">Kisumu, Kenya</option>
+        <option value="Dar es salaam, Tanzania">Dar es salaam, Tanzania</option>
+        <option value="Dodoma, Tanzania">Dodoma, Tanzania</option>
+      </select>
+      <span class="to">To:</span>
+      <select id="from">
+        <option value="Mbale, Uganda">Mbale, Uganda</option>
+        <option value="Mbarara, Uganda">Mbarara, Uganda</option>
+        <option value="Gulu, Uganda">Gulu, Uganda</option>
+        <option value="Nairobi, Kenya">Nairobi, Kenya</option>
+        <option value="Kisumu, Kenya">Kisumu, Kenya</option>
+        <option value="Dar es salaam, Tanzania">Dar es salaam, Tanzania</option>
+        <option value="Dodoma, Tanzania">Dodoma, Tanzania</option>
+      </select>
+      <span class="weight">Weight (kg):</span>
+      <input type="number" id="weight" value=1 min=0.1 step=0.1  />
+      <button class="order-btn">Order</button>
+    </div>
+  </div>
+  </div>
+  <script src="js/fetchscripts/logout.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+dlg_box_edit = document.getElementsByClassName("dlg-box-edit")[0]
+dlg_footer = dlg_box_edit.getElementsByClassName("dlg-footer")[0]
+dlg_footer_make_order = dlg_footer.getElementsByTagName("button")[2]
+dlg_footer_make_order.onclick = () => {
+    dlg_header = dlg_box_edit.getElementsByClassName("dlg-header")[0]
+    dlg_header_ord = dlg_header.getElementsByTagName("span")[0]
+    orderId = dlg_header_ord.innerHTML
+
+    const auth = `Bearer ${localStorage.getItem("token")}`
+    const url = `https://sendit-updated.herokuapp.com/api/v2/parcels/${parcelid}/order`
+
+    fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": auth
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+
+    $('.dlg-wrapper-edit').fadeOut();
+    $('.dlg-box-edit').hide();
+
+    location.reload()
+
+}
