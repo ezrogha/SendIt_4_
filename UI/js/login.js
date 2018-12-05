@@ -2,6 +2,7 @@ $(document).ready(function() {
   $(".message a").click(function() {
     $("form").animate(
       {
+        width: "toggle",
         height: "toggle",
         opacity: "toggle"
       },
