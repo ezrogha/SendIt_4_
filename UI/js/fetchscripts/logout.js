@@ -5,5 +5,4 @@ signout.onclick = () => {
         localStorage.removeItem("token")
         window.location.replace("./index.html");
     }
-    alert("yghuijnkm")
 }
