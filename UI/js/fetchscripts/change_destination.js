@@ -9,23 +9,29 @@ dlg_footer_save.onclick = () => {
     dlg_header_ord = dlg_header.getElementsByTagName("span")[0]
     parcelid = dlg_header_ord.innerHTML
     destination = document.getElementById("to-edit").value
-    const data = { destination }
+    const data = {
+        destination
+    }
+    console.log(data)
     const auth = `Bearer ${localStorage.getItem("token")}`
     const url = `https://sendit-updated.herokuapp.com/api/v2/parcels/${parcelid}/destination`
+    // const url = `http://127.0.0.1:5000/api/v2/parcels/${parcelid}/destination`
 
     fetch(url, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": auth
-        }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": auth
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
 
     $('.dlg-wrapper-edit').fadeOut();
     $('.dlg-box-edit').hide();
-    
-    location.reload()
+
+    setTimeout(() => {
+        location.reload()
+    }, 2000)
 }

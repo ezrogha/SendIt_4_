@@ -22,6 +22,7 @@ window.onload = () => {
             price
         }
         const url = "https://sendit-updated.herokuapp.com/api/v2/parcels"
+        // const url = "http://127.0.0.1:5000/api/v2/parcels"
         const auth = `Bearer ${localStorage.getItem("token")}`
 
         fetch(url, {
