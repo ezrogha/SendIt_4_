@@ -8,8 +8,15 @@ register = () => {
     confirm = document.getElementById("confirm").value;
 
     if (password != confirm) {
-        document.getElementById("notif-register").innerHTML = "Passwords do not match, , please check again"
-        console.log("Passwords dont match, please check again")
+        notif_register = document.getElementById("notif-register")
+        if (notif_register.classList.contains("succ-msg")) {
+            notif_register.classList.add("err-msg")
+            notif_register.innerHTML = "Passwords do not match, please check again"
+            console.log("Passwords dont match, please check again")
+        } else {
+            notif_register.classList.add("err-msg")
+            notif_register.innerHTML = "Passwords do not match, please check again"
+        }
     } else {
         const data = {
             username,
@@ -20,6 +27,7 @@ register = () => {
         };
 
         const url = "https://sendit-updated.herokuapp.com/api/v2/signup";
+        // const url = "http://127.0.0.1:5000/api/v2/signup";
 
         fetch(url, {
                 method: "POST",
@@ -64,9 +72,11 @@ login = (user) => {
 
     if (user == 'admin') {
         var url = "https://sendit-updated.herokuapp.com/api/v2/admin/login"
+        // var url = "http://127.0.0.1:5000/api/v2/admin/login"
         var home = "./orders.html"
     } else {
         var url = "https://sendit-updated.herokuapp.com/api/v2/login"
+        // var url = "http://127.0.0.1:5000/api/v2/login"
         var home = "./order.html"
     }
 
