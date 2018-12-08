@@ -1,10 +1,7 @@
-signout = document.getElementsByClassName("signout")
-for (i = 0; i < signout.length; i++) {
-    signout[i].onclick = () => {
+$(document).ready(function() {
+    $('.signout').click(function() {
         event.preventDefault()
-        if (localStorage.getItem("token") != null) {
-            localStorage.removeItem("token")
-            window.location.replace("./login.html");
-        }
-    }
-}
+        localStorage.removeItem("token")
+        window.location.href = "./login.html";
+    })
+})
