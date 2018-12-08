@@ -1,5 +1,5 @@
 body {
-  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(../images/pic2.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/pic2.jpg);
   height: 100vh;
   background-size: cover;
   background-position: center;
@@ -59,13 +59,15 @@ body {
   /* cursor: default */
 }
 
-.form .message, .form .message-admin  {
+.form .message,
+.form .message-admin {
   margin: 15px 0 0;
   color: aliceblue;
   font-size: 14px
 }
 
-.form .message a, .form .message-admin a {
+.form .message a,
+.form .message-admin a {
   text-decoration: none;
   color: #e78200
 }
@@ -82,7 +84,8 @@ h2 {
   color: #e78200
 }
 
-.err-msg, .succ-msg {
+.err-msg,
+.succ-msg {
   font-weight: bold;
   font-family: sans-serif;
   display: block;
@@ -95,4 +98,28 @@ h2 {
 
 .succ-msg {
   color: rgb(52, 211, 145);
+}
+
+
+.loader {
+  display: none;
+  margin: auto;
+  border: 5px solid rgba(14, 102, 85, 0.5);
+  border-top: 5px solid #4caf50;
+  border-left: 5px solid #4caf50;
+  border-right: 5px solid #4caf50;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

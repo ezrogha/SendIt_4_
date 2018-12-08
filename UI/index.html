@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>SendIT: Login and Registration</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/login.css" />
   <script src="js/fetchscripts/redirect.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -27,6 +27,7 @@
         <input type="password" id="confirm" placeholder="Confirm Password" />
         <span id="notif-register"></span>
         <button class="btn" onclick="register()">Register</button>
+        <div class="loader"></div>
         <p class="message">Already Registered?
           <a href="#" id="a_login">Login</a>
         </p>
@@ -36,6 +37,7 @@
         <input type="password" id="password_login" placeholder="Password" />
         <span id="notif-login"></span>
         <button class="btn" onclick="login('user')">Login</button>
+        <div class="loader"></div>
         <p class="message">Not Registered?
           <a href="#" id="a_register">Register</a>
         </p>
