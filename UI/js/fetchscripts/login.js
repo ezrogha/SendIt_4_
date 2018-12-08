@@ -144,22 +144,27 @@ login = (user) => {
     }
 
     if (user == 'admin') {
-        var url = "https://sendit-updated.herokuapp.com/api/v2/admin/login"
-        // var url = "http://127.0.0.1:5000/api/v2/admin/login"
+        // var url = "https://sendit-updated.herokuapp.com/api/v2/admin/login"
+        var url = "http://127.0.0.1:5000/api/v2/admin/login"
         var home = "./orders.html"
     } else {
-        var url = "https://sendit-updated.herokuapp.com/api/v2/login"
-        // var url = "http://127.0.0.1:5000/api/v2/login"
+        // var url = "https://sendit-updated.herokuapp.com/api/v2/login"
+        var url = "http://127.0.0.1:5000/api/v2/login"
         var home = "./order.html"
     }
 
     err_element = document.getElementById("notif-login")
-    if(err_element.classList.contains("err-msg")){
+    if (err_element.classList.contains("err-msg")) {
         err_element.classList.remove("err-msg")
         err_element.style.display = "none"
     }
-    login_loader = document.getElementsByClassName("loader")[1]
-    login_btn = document.getElementsByClassName("btn")[1]
+    if (user === "admin") {
+        login_loader = document.getElementsByClassName("loader")[0]
+        login_btn = document.getElementsByClassName("btn")[0]
+    } else {
+        login_loader = document.getElementsByClassName("loader")[1]
+        login_btn = document.getElementsByClassName("btn")[1]
+    }
     login_loader.style.display = "block"
     login_btn.style.display = "none"
 
