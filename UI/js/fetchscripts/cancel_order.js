@@ -19,7 +19,9 @@ dlg_footer_cancel_order.onclick = () => {
             }
         })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => 
+            console.log(data)
+        )
 
     $('.dlg-wrapper-edit').fadeOut();
     $('.dlg-box-edit').hide();

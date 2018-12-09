@@ -54,7 +54,7 @@ register = () => {
         if (notif_register.classList.contains("succ-msg")) {
             notif_register.classList.add("err-msg")
             notif_register.innerHTML = "Passwords do not match, please check again"
-            console.log("Passwords dont match, please check again")
+            // console.log("Passwords dont match, please check again")
         } else {
             notif_register.classList.add("err-msg")
             notif_register.innerHTML = "Passwords do not match, please check again"
@@ -179,7 +179,7 @@ login = (user) => {
         .then(data => {
             if (data.hasOwnProperty("access_token")) {
                 token = data["access_token"]
-                console.log(token)
+                // console.log(token)
                 localStorage.setItem("token", token)
                 window.location.replace(home)
             } else {

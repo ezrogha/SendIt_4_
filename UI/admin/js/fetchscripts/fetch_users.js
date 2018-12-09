@@ -2,7 +2,7 @@ window.onload = () => {
     const token = localStorage.getItem("token");
     data = JSON.parse(atob(token.split(".")[1]));
     userData = data["identity"];
-    console.log(`Data: ${JSON.stringify(userData)}`);
+    // console.log(`Data: ${JSON.stringify(userData)}`);
 
     // const url = "http://127.0.0.1:5000/api/v2/admin/users";
     const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";

@@ -2,7 +2,7 @@ window.onload = () => {
     const token = localStorage.getItem("token")
     data = JSON.parse(atob(token.split('.')[1]))
     userData = data["identity"]
-    console.log(`Data: ${JSON.stringify(userData)}`)
+    // console.log(`Data: ${JSON.stringify(userData)}`)
 
     userId = userData["userid"]
     const url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`

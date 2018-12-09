@@ -43,7 +43,7 @@ window.onload = () => {
                         window.location.href = "./delivery_orders.html"
                     }
                 } else {
-                    console.log(message)
+                    // console.log(message)
                 }
             })
             .catch(err => console.log(`Error: ${err}`))
