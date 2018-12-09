@@ -4,8 +4,8 @@ window.onload = () => {
     userData = data["identity"];
     console.log(`Data: ${JSON.stringify(userData)}`);
 
-    // const url = "http://127.0.0.1:5000/api/v2/admin/users";
-    const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
+    const url = "http://127.0.0.1:5000/api/v2/admin/users";
+    // const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
     const auth = `Bearer ${localStorage.getItem("token")}`;
 
     fetch(url, {
@@ -59,13 +59,13 @@ handleUser = user => {
 
     div_sent = document.createElement("div");
     div_sent.classList.add("list-col");
-    div_sent.innerHTML = sent;
+    div_sent.innerHTML = email;
     div_item.appendChild(div_sent);
     order_list.appendChild(div_item);
 
     div_received = document.createElement("div");
     div_received.classList.add("list-col");
-    div_received.innerHTML = 0;
+    div_received.innerHTML = sent;
     div_item.appendChild(div_received);
     order_list.appendChild(div_item);
 

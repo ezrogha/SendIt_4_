@@ -68,8 +68,8 @@ register = () => {
             password
         };
 
-        const url = "https://sendit-updated.herokuapp.com/api/v2/signup";
-        // const url = "http://127.0.0.1:5000/api/v2/signup";
+        // const url = "https://sendit-updated.herokuapp.com/api/v2/signup";
+        const url = "http://127.0.0.1:5000/api/v2/signup";
 
         register_loader = document.getElementsByClassName("loader")[0]
         register_btn = document.getElementsByClassName("btn")[0]
@@ -144,12 +144,12 @@ login = (user) => {
     }
 
     if (user == 'admin') {
-        var url = "https://sendit-updated.herokuapp.com/api/v2/admin/login"
-        // var url = "http://127.0.0.1:5000/api/v2/admin/login"
+        // var url = "https://sendit-updated.herokuapp.com/api/v2/admin/login"
+        var url = "http://127.0.0.1:5000/api/v2/admin/login"
         var home = "./orders.html"
     } else {
-        var url = "https://sendit-updated.herokuapp.com/api/v2/login"
-        // var url = "http://127.0.0.1:5000/api/v2/login"
+        // var url = "https://sendit-updated.herokuapp.com/api/v2/login"
+        var url = "http://127.0.0.1:5000/api/v2/login"
         var home = "./order.html"
     }
 
