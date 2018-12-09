@@ -8,7 +8,8 @@ window.onload = () => {
     const url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`
     // const url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`
     const auth = `Bearer ${localStorage.getItem("token")}`
-
+    loader = document.getElementById("loader")
+    loader.style.display = "block"
     fetch(url, {
             method: "GET",
             headers: {
@@ -19,6 +20,7 @@ window.onload = () => {
         .then(response => response.json())
         .then(data => {
             data.forEach(parcel => handledata(parcel))
+            loader.style.display = "none"
         })
         .catch(err => `Error: ${err}`)
 }

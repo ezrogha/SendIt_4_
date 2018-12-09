@@ -7,7 +7,8 @@ window.onload = () => {
     // const url = "http://127.0.0.1:5000/api/v2/parcels";
     const url = "https://sendit-updated.herokuapp.com/api/v2/parcels";
     const auth = `Bearer ${localStorage.getItem("token")}`;
-
+    loader = document.getElementById("loader")
+    loader.style.display = "block"
     fetch(url, {
             method: "GET",
             headers: {
@@ -20,6 +21,7 @@ window.onload = () => {
             // console.log(data)
             data.forEach(parcel => {
                 handleParcel(parcel);
+                loader.style.display = "none"
             });
         })
         .catch(err => console.log(err))
@@ -35,10 +37,19 @@ handleParcel = parcel => {
     curr_location = parcel["current_location"]
     date = parcel["creation_date"]
     parcelId = parcel["parcelid"]
+    cancel_status = parcel["cancel_status"]
 
     order_list = document.getElementsByClassName("order-list")[0];
 
     div_item = document.createElement("div");
+
+    if (status === "Delivered") {
+        div_item.classList.add("list-item", "item-active", "item-delivered");
+    } else if (status === "Not Delivered") {
+        div_item.classList.add("list-item", "item-active", "item-not-delivered");
+    } else {
+        div_item.classList.add("list-item", "item-active", "item-in-transit");
+    }
     div_item.classList.add("list-item", "item-active");
 
     div_id = document.createElement("div");
@@ -69,12 +80,25 @@ handleParcel = parcel => {
     div_status = document.createElement("div");
     if (status === "Delivered") {
         div_status.classList.add("list-col", "yeah");
+        div_status.innerHTML = status;
     } else if (status === "In Transit") {
         div_status.classList.add("list-col", "yeah", "italic");
+        div_status.innerHTML = status;
     } else {
-        div_status.classList.add("list-col", "not");
+        if (cancel_status === "Cancelled") {
+            div_status.classList.add("list-col", "cancelled")
+            div_status.innerHTML = "Cancelled";
+        } else {
+            div_status.classList.add("list-col", "not");
+            div_status.innerHTML = status;
+        }
     }
-    div_status.innerHTML = status;
+
+    // if (status === "Cancelled") {
+    //     div_status.innerHTML = "Cancelled";
+    // } else {
+    //     div_status.innerHTML = status;
+    // }
     div_item.appendChild(div_status);
 
     div_icon = document.createElement("div");

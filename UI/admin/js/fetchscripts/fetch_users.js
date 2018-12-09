@@ -8,6 +8,8 @@ window.onload = () => {
     const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
     const auth = `Bearer ${localStorage.getItem("token")}`;
 
+    loader = document.getElementById("loader")
+    loader.style.display = "block"
     fetch(url, {
             method: "GET",
             headers: {
@@ -22,6 +24,7 @@ window.onload = () => {
                     handleUser(user);
                 }
             });
+            loader.style.display = "none"
         });
 };
 

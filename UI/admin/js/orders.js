@@ -78,4 +78,23 @@ $(document).on('click', '.icon-style, .a', function (event) {
       $('.menu').on('click', function() {
         $('.dropdown-two').toggle()
       })
+
+      $('.dropdown .all').click(function() {
+        $('.list-item').show();
+      })
+      $('.dropdown .delivered').click(function() {
+        $('.item-not-delivered').hide();
+        $('.item-in-transit').hide();
+        $('.item-delivered').show();
+      })
+      $('.dropdown .not-delivered').click(function() {
+        $('.item-not-delivered').show();
+        $('.item-in-transit').hide();
+        $('.item-delivered').hide();
+      })
+      $('.dropdown .in-transit').click(function() {
+        $('.item-not-delivered').hide();
+        $('.item-in-transit').show();
+        $('.item-delivered').hide();
+      })
     });
