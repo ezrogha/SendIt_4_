@@ -35,7 +35,7 @@ handleParcel = parcel => {
     curr_location = parcel["current_location"]
     date = parcel["creation_date"]
     parcelId = parcel["parcelid"]
-    
+
     order_list = document.getElementsByClassName("order-list")[0];
 
     div_item = document.createElement("div");
@@ -68,8 +68,8 @@ handleParcel = parcel => {
 
     div_status = document.createElement("div");
     if (status === "Delivered") {
-        div_status.classList.add("list-col", "yeah");    
-    } else if(status === "In Transit") {
+        div_status.classList.add("list-col", "yeah");
+    } else if (status === "In Transit") {
         div_status.classList.add("list-col", "yeah", "italic");
     } else {
         div_status.classList.add("list-col", "not");
@@ -98,6 +98,29 @@ handleParcel = parcel => {
     div_item.appendChild(div_icon)
     order_list.appendChild(div_item)
 
+    a_icon.onclick = () => {
+        event.preventDefault()
+        handleDlg(parcel)
+    }
+
+    a_icon2.onclick = () => {
+        event.preventDefault()
+        $(".dlg-wrapper").fadeIn()
+        $(".dlg-box").fadeIn()
+    }
+
+};
+
+handleDlg = parcel => {
+    from = parcel["source"]
+    to = parcel["destination"]
+    weight = parcel["weight"]
+    price = parcel["price"]
+    status = parcel["status"]
+    curr_location = parcel["current_location"]
+    date = parcel["creation_date"]
+    parcelId = parcel["parcelid"]
+
     dlg_box_edit = document.getElementsByClassName("dlg-box-edit")[0]
     dlg_header_edit = dlg_box_edit.getElementsByClassName("dlg-header")[0]
     dlg_header_span = dlg_header_edit.getElementsByTagName("span")[0]
@@ -119,25 +142,15 @@ handleParcel = parcel => {
     input_price.value = price
 
     input_status = document.getElementById("status")
-    for(i=0; i<input_status.options.length; i++){
-        if(input_status.options[i].innerHTML === status){
+    for (i = 0; i < input_status.options.length; i++) {
+        if (input_status.options[i].innerHTML === status) {
             input_status.options[i].setAttribute("selected", "selected")
         }
     }
 
     input_location = document.getElementById("location-edit")
     input_location.value = curr_location
-    
-    a_icon.onclick = () => {
-        event.preventDefault()
-        $(".dlg-wrapper-edit").fadeIn()
-        $(".dlg-box-edit").fadeIn()
-    }
 
-    a_icon2.onclick = () => {
-        event.preventDefault()
-        $(".dlg-wrapper").fadeIn()
-        $(".dlg-box").fadeIn()
-    }
-
-};
+    $(".dlg-wrapper-edit").fadeIn()
+    $(".dlg-box-edit").fadeIn()
+}
