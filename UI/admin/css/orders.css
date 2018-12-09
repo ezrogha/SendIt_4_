@@ -154,6 +154,10 @@ nav ul li a:hover {
   color: #28862c;
 }
 
+.italic {
+  font-style: italic
+}
+
 .status {
   position: relative;
   display: inline-block;

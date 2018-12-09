@@ -10,11 +10,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" media="screen" href="css/orders.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/dialog.css" />
+  <script src="js/fetchscripts/fetch_orders.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="js/orders.js"></script>
   <style>
     .to {
       display: none;
+    }
+    .list-col {
+      margin: 0 5px 0 0
     }
     @media screen and (max-width: 816px){
       .order-list {
@@ -61,16 +65,16 @@
   <div class="dlg-wrapper-edit">
     <div class="dlg-box-edit">
       <div class="dlg-header">
-        Edit Order: 0182
+        Edit Order: 0<span id="parcelId"></span>
       </div>
       <div class="dlg-body-edit">
         <div>
           <span>From:</span>
-          <select disabled>
+          <select disabled id="from-edit">
             <option>Kampala, Uganda</option>
           </select>
           <span> To:</span>
-          <select>
+          <select id="to-edit">
             <option>Mbale, Uganda</option>
             <option>Mbarara, Uganda</option>
             <option>Gulu, Uganda</option>
@@ -82,16 +86,21 @@
         </div>
         <div>
           <span>Weight (in Kg): </span>
-          <input value="1.2" size="5" />
+          <input value="1.2" size="5" id="weight" />
           <span>Price (in USD):</span>
-          <input value="32" size="5" />
+          <input value="32" size="5" id="price" />
         </div>
         <div>
           <span>Status: </span>
-          <select>
-            <option>Delivered</option>
-            <option>Not Delivered</option>
+          <select id="status">
+            <option value="Delivered">Delivered</option>
+            <option value="In Transit">In Transit</option>
+            <option value="Not Delivered">Not Delivered</option>
           </select>
+        </div>
+        <div>
+          <span>Current location: </span>
+          <input value="" id="location-edit" />
         </div>
       </div>
       <div class="dlg-footer">
@@ -162,7 +171,7 @@
           </div>
         </div>
       </div>
-      <div class="list-item item-not-delivered">
+      <!-- <div class="list-item item-not-delivered">
         <div class="list-col">0182</div>
         <div class="list-col">Kampala, Uganda</div>
         <div class="list-col">Kisumu, Kenya</div>
@@ -225,10 +234,11 @@
             <icon class="fa fa-trash"></icon>
           </a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <script src="js/signout_admin.js"></script>
+  <script src="js/fetchscripts/change_location.js"></script>
 </body>
 
 </html>
