@@ -11,8 +11,8 @@ dlg_footer_save.onclick = () => {
     const loc_data = {
         current_location: dlg_location
     }
-    const loc_url = `http://127.0.0.1:5000/api/v2/parcels/${dlg_parcelId}/location`;
-    // const url = "https://sendit-updated.herokuapp.com/api/v2/parcels/${dlg_parcelId}/location";
+    // const loc_url = `http://127.0.0.1:5000/api/v2/parcels/${dlg_parcelId}/location`;
+    const url = "https://sendit-updated.herokuapp.com/api/v2/parcels/${dlg_parcelId}/location";
     const auth = `Bearer ${localStorage.getItem("token")}`;
 
     fetch(loc_url, {
@@ -33,8 +33,8 @@ dlg_footer_save.onclick = () => {
     const sta_data = {
         status: dlg_status
     }
-    const sta_url = `http://127.0.0.1:5000/api/v2/parcels/${dlg_parcelId}/status`;
-    // const url = "https://sendit-updated.herokuapp.com/api/v2/parcels/${dlg_parcelId}/status";
+    // const sta_url = `http://127.0.0.1:5000/api/v2/parcels/${dlg_parcelId}/status`;
+    const url = "https://sendit-updated.herokuapp.com/api/v2/parcels/${dlg_parcelId}/status";
 
     fetch(sta_url, {
             method: "PUT",

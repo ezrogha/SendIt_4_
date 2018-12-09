@@ -8,8 +8,8 @@ dlg_footer_cancel_order.onclick = () => {
     parcelid = dlg_header_ord.innerHTML
 
     const auth = `Bearer ${localStorage.getItem("token")}`
-    // const url = `https://sendit-updated.herokuapp.com/api/v2/parcels/${parcelid}/cancel`
-    const url = `http://127.0.0.1:5000/api/v2/parcels/${parcelid}/cancel`
+    const url = `https://sendit-updated.herokuapp.com/api/v2/parcels/${parcelid}/cancel`
+    // const url = `http://127.0.0.1:5000/api/v2/parcels/${parcelid}/cancel`
 
     fetch(url, {
             method: "PUT",
