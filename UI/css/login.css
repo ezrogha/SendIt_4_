@@ -102,6 +102,7 @@ h2 {
 
 
 .loader {
+  margin: auto;
   display: none;
   border: 5px solid rgba(14, 102, 85, 0.5);
   border-top: 5px solid #4caf50;
