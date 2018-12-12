@@ -47,5 +47,8 @@ window.onload = () => {
                 }
             })
             .catch(err => console.log(`Error: ${err}`))
+
+            $("#dlg-wrapper").fadeOut();
+            $("#dlg-box").fadeOut();
     }
 }
