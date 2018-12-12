@@ -121,14 +121,14 @@ register = () => {
 
 login = (user) => {
     event.preventDefault()
-    username = document.getElementById("username_login").value;
+    email = document.getElementById("email_login").value;
     password = document.getElementById("password_login").value;
 
-    if (username.trim() === "") {
+    if (email.trim() === "") {
         err_element = document.getElementById("notif-login")
         err_element.classList.add("err-msg")
         err_element.style.display = "block"
-        err_element.innerHTML = "Please provide a username"
+        err_element.innerHTML = "Please provide an email"
         return false
     } else if (password.trim() === "") {
         err_element = document.getElementById("notif-login")
@@ -138,8 +138,18 @@ login = (user) => {
         return false
     }
 
+    var format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(format)) {
+
+    } else {
+        err_element = document.getElementById("notif-login")
+        err_element.classList.add("err-msg")
+        err_element.innerHTML = "Something is not right with your email!, please double check"
+        return false
+    }
+
     const data = {
-        username,
+        email,
         password
     }
 
