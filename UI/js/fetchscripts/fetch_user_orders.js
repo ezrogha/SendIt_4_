@@ -2,11 +2,10 @@ window.onload = () => {
     const token = localStorage.getItem("token")
     data = JSON.parse(atob(token.split('.')[1]))
     userData = data["identity"]
-    // console.log(`Data: ${JSON.stringify(userData)}`)
 
     userId = userData["userid"]
-    const url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`
-    // const url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`
+    var url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`
+    // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`
     const auth = `Bearer ${localStorage.getItem("token")}`
     loader = document.getElementById("loader")
     loader.style.display = "block"
@@ -19,14 +18,55 @@ window.onload = () => {
         })
         .then(response => response.json())
         .then(data => {
-            data.forEach(parcel => handledata(parcel))
+            data.forEach(parcel => handleParcel(parcel))
             loader.style.display = "none"
         })
         .catch(err => `Error: ${err}`)
+
+    var search_input = document.getElementById("search_orders")
+    search_input.onkeyup = (event) => {
+        val = event.target.value
+        console.log(val)
+        if (val.trim() === "" || isNaN(val.trim())) {
+            var url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`
+            // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`
+            method = "GET"
+        } else {
+            new_val = val.trim()
+            var url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcel/${new_val}`
+            // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcel/${new_val}`
+            method = "PUT"
+        }
+        const auth = `Bearer ${localStorage.getItem("token")}`;
+
+        fetch(url, {
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: auth
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                order_list = document.getElementsByClassName("order-list")[0];
+                kids = order_list.children
+                for (i = 0; i < kids.length; i++) {
+                    if(kids[i].classList.contains("list-item")){
+                        kids[i].style.display = "none"
+                    }
+                }
+                data.forEach(parcel => {
+                    if (parcel["role"] !== "admin") {
+                        handleParcel(parcel);
+                    }
+                });
+            });
+    }
+
 }
 
 
-handledata = parcel => {
+handleParcel = parcel => {
     creation_date = parcel["creation_date"]
     current_location = parcel["current_location"]
     destination = parcel["destination"]
