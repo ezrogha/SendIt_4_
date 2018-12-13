@@ -41,9 +41,6 @@ window.onload = () => {
         }
         const auth = `Bearer ${localStorage.getItem("token")}`;
 
-        loader = document.getElementById("loader")
-        loader.style.display = "block"
-
         fetch(url, {
                 method,
                 headers: {
@@ -65,7 +62,6 @@ window.onload = () => {
                         handleParcel(parcel);
                     }
                 });
-                loader.style.display = "none"
             });
     }
 
