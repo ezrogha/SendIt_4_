@@ -4,8 +4,8 @@ window.onload = () => {
     userData = data["identity"];
     // console.log(`Data: ${JSON.stringify(userData)}`);
 
-    var url = "http://127.0.0.1:5000/api/v2/admin/users";
-    // const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
+    // var url = "http://127.0.0.1:5000/api/v2/admin/users";
+    const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
     var method = "GET" 
     const auth = `Bearer ${localStorage.getItem("token")}`;
 
@@ -40,14 +40,14 @@ window.onload = () => {
     search_input.onkeyup = (event) => {
         val = event.target.value
         if (val.trim() === "") {
-            var url = `http://127.0.0.1:5000/api/v2/admin/users`;
-            // var url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
+            // var url = `http://127.0.0.1:5000/api/v2/admin/users`;
+            var url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
             method = "GET"
         } else {
             new_val = val.trim()
             low_val = new_val.toLowerCase()
-            var url = `http://127.0.0.1:5000/api/v2/user/${low_val}`;
-            // var url = `https://sendit-updated.herokuapp.com/api/v2/user/${val}`;
+            // var url = `http://127.0.0.1:5000/api/v2/user/${low_val}`;
+            var url = `https://sendit-updated.herokuapp.com/api/v2/user/${val}`;
             method = "PUT"
         }
         const auth = `Bearer ${localStorage.getItem("token")}`;

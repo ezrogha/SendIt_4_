@@ -2,9 +2,8 @@ window.onload = () => {
     const token = localStorage.getItem("token");
     data = JSON.parse(atob(token.split(".")[1]));
     userData = data["identity"];
-    // console.log(`Data: ${JSON.stringify(userData)}`);
 
-    // const url = "http://127.0.0.1:5000/api/v2/parcels";
+    // var url = "http://127.0.0.1:5000/api/v2/parcels";
     const url = "https://sendit-updated.herokuapp.com/api/v2/parcels";
     const auth = `Bearer ${localStorage.getItem("token")}`;
     loader = document.getElementById("loader")
@@ -25,6 +24,51 @@ window.onload = () => {
             });
         })
         .catch(err => console.log(err))
+
+    var search_input = document.getElementById("search_orders")
+    search_input.onkeyup = (event) => {
+        val = event.target.value
+        if (val.trim() === "" || isNaN(val.trim())) {
+            // var url = `http://127.0.0.1:5000/api/v2/parcels`;
+            var url = "https://sendit-updated.herokuapp.com/api/v2/parcels";
+            method = "GET"
+        } else {
+            new_val = val.trim()
+            // int_val = parseInt(new_val)
+            // var url = `http://127.0.0.1:5000/api/v2/parcel/${new_val}`;
+            var url = `https://sendit-updated.herokuapp.com/api/v2/parcel/${new_val}`;
+            method = "PUT"
+        }
+        const auth = `Bearer ${localStorage.getItem("token")}`;
+
+        loader = document.getElementById("loader")
+        loader.style.display = "block"
+
+        fetch(url, {
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: auth
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                order_list = document.getElementsByClassName("order-list")[0];
+                kids = order_list.children
+                for (i = 0; i < kids.length; i++) {
+                    if(kids[i].classList.contains("list-item")){
+                        kids[i].style.display = "none"
+                    }
+                }
+                data.forEach(parcel => {
+                    if (parcel["role"] !== "admin") {
+                        handleParcel(parcel);
+                    }
+                });
+                loader.style.display = "none"
+            });
+    }
+
 };
 
 handleParcel = parcel => {
