@@ -14,8 +14,8 @@ $(document).ready(function() {
     $(".dlg-box").hide();
   });
 
-  //Delete Order
-  $(".dlg-footer .a").click(function() {
+  //Change User Status
+  $(".dlg-footer a").click(function() {
     $(".dlg-wrapper").fadeOut();
     $(".dlg-box").hide();
   });

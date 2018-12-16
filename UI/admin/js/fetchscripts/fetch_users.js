@@ -6,7 +6,7 @@ window.onload = () => {
 
     // var url = "http://127.0.0.1:5000/api/v2/admin/users";
     const url = "https://sendit-updated.herokuapp.com/api/v2/admin/users";
-    var method = "GET" 
+    var method = "GET"
     const auth = `Bearer ${localStorage.getItem("token")}`;
 
     loader = document.getElementById("loader")
@@ -21,13 +21,7 @@ window.onload = () => {
         })
         .then(response => response.json())
         .then(data => {
-            order_list = document.getElementsByClassName("order-list")[0];
-            kids = order_list.children
-            for (i = 0; i < kids.length; i++) {
-                if (kids[i].className === "list-item item-active") {
-                    kids[i].style.display = "none"
-                }
-            }
+            $('.list-item').remove()
             data.forEach(user => {
                 if (user["role"] !== "admin") {
                     handleUser(user);
@@ -61,13 +55,7 @@ window.onload = () => {
             })
             .then(response => response.json())
             .then(data => {
-                order_list = document.getElementsByClassName("order-list")[0];
-                kids = order_list.children
-                for (i = 0; i < kids.length; i++) {
-                    if (kids[i].className === "list-item item-active") {
-                        kids[i].style.display = "none"
-                    }
-                }
+                $('.list-item').remove()
                 data.forEach(user => {
                     if (user["role"] !== "admin") {
                         handleUser(user);
@@ -89,7 +77,11 @@ handleUser = user => {
     order_list = document.getElementsByClassName("order-list")[0];
 
     div_item = document.createElement("div");
-    div_item.classList.add("list-item", "item-active");
+    if (status === "active") {
+        div_item.classList.add("list-item", "item-active");
+    } else {
+        div_item.classList.add("list-item", "item-not-active");
+    }
 
     div_id = document.createElement("div");
     div_id.classList.add("list-col");
@@ -151,14 +143,28 @@ handleUser = user => {
     div_item.appendChild(div_icon);
     order_list.appendChild(div_item);
 
-
-    // dlg_wrapper = document.getElementsByClassName("dlg-wrapper")[0]
-    // dlg_box = document.getElementsByClassName("dlg-box")[0]
-
     a_icon.onclick = () => {
         event.preventDefault()
+        handleDlg(user)
         $(".dlg-wrapper").fadeIn()
         $(".dlg-box").fadeIn()
     }
 
 };
+
+handleDlg = user => {
+    username = user["username"]
+    userId = user["userid"]
+    status = user["status"]
+
+    dlg_box = document.getElementsByClassName("dlg-box")[0]
+    dlg_header = dlg_box.getElementsByClassName("dlg-header")[0]
+    dlg_body = dlg_box.getElementsByClassName("dlg-body")[0]
+    if (status === "active") {
+        dlg_header.innerHTML = "Confirm Deactivation"
+        dlg_body.innerHTML = `Are you sure you want to <i style='color: red'>deactivate</i> <span>${userId}</span>:${username}'s account?`
+    } else {
+        dlg_header.innerHTML = "Confirm Activation"
+        dlg_body.innerHTML = `Are you sure you want to <i style='color: green'>activate</i> <span>${userId}</span>:${username}'s account?`
+    }
+}

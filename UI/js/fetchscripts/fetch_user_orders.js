@@ -18,6 +18,7 @@ window.onload = () => {
         })
         .then(response => response.json())
         .then(data => {
+            $('.list-item').remove()
             data.forEach(parcel => handleParcel(parcel))
             loader.style.display = "none"
         })
@@ -48,13 +49,7 @@ window.onload = () => {
             })
             .then(response => response.json())
             .then(data => {
-                order_list = document.getElementsByClassName("order-list")[0];
-                kids = order_list.children
-                for (i = 0; i < kids.length; i++) {
-                    if(kids[i].classList.contains("list-item")){
-                        kids[i].style.display = "none"
-                    }
-                }
+                $('.list-item').remove()
                 data.forEach(parcel => {
                     if (parcel["role"] !== "admin") {
                         handleParcel(parcel);
