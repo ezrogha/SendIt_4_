@@ -17,8 +17,8 @@ dlg_footer_btn.onclick = () => {
         }
     }
 
-    const url = `http://127.0.0.1:5000/api/v2/users/${userId}/status`
-    // const url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/status`
+    // const url = `http://127.0.0.1:5000/api/v2/users/${userId}/status`
+    const url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/status`
     const auth = `Bearer ${localStorage.getItem("token")}`;
     fetch(url, {
             method: "PUT",
