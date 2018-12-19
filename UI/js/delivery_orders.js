@@ -1,8 +1,29 @@
 $(document).ready(function() {
 
-  $('.dlg-wrapper-edit, .dlg-wrapper, .dlg-wrapper-transit').hide();
-  $('.dlg-box-edit, .dlg-box, .dlg-box-transit').hide();
+  $('.dlg-wrapper-edit, .dlg-wrapper, .dlg-wrapper-prof, .dlg-wrapper-alert, .dlg-wrapper-transit').hide();
+  $('.dlg-box-edit, .dlg-box, .dlg-box-prof, .dlg-box-alert, .dlg-box-transit').hide();
 
+  $('#dlg-edit').click(function() {
+    event.preventDefault()
+    $('.dlg-wrapper-prof').fadeIn();
+    $('.dlg-box-prof').fadeIn();
+  })
+
+  $('.dlg-box-prof .dlg-footer .cancel').click(function() {
+    $('.dlg-wrapper-prof').fadeOut();
+    $('.dlg-box-prof').fadeOut();
+  })
+
+  $('.dlg-box-alert .dlg-footer .ok').click(function() {
+    $('.dlg-wrapper-alert').fadeOut();
+    $('.dlg-box-alert').fadeOut();
+  })
+
+  $('#change-pass-text').click(function() {
+    event.preventDefault()
+    $(this).hide()
+    $('#change-pass').fadeIn()
+  })
 
   // Check Again
   $('.item-not-delivered').click(function() {
@@ -37,6 +58,19 @@ $(document).ready(function() {
       .children('.dropdown')
       .removeClass('show_dropdown');
   })
+
+
+  $(".profile").click(function(){
+    $("#profile-dialog").toggleClass("show_dialogg")
+  })
+
+  $(this).click(function(e){
+    $('#inner')
+      .not($('#inner').has($(e.target)))
+      .children('#profile-dialog')
+      .removeClass('show_dialogg');
+  })
+
 
   $('.dropdown .all').click(function() {
     $('.list-item').show();

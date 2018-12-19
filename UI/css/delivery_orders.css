@@ -273,3 +273,11 @@ nav ul li a:hover {
     transform: rotate(360deg);
   }
 }
+
+#change-pass-text {
+  color: #e78200
+}
+
+#change-pass {
+  display: none
+}

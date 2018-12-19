@@ -3,6 +3,31 @@ window.onload = () => {
     data = JSON.parse(atob(token.split('.')[1]))
     userData = data["identity"]
 
+    // Profile 
+    profile_name = document.getElementById("profile-name")
+    profile_name.getElementsByTagName("span")[0].innerHTML = userData["username"]
+    document.getElementById("dlg-name").innerHTML = userData["username"]
+    document.getElementById("dlg-email").innerHTML = userData["email"]
+    document.getElementById("dlg-address").innerHTML = userData["address"]
+    document.getElementById("dlg-phone").innerHTML = userData["phone"]
+
+    profile_orders = document.getElementById("profile-orders")
+    profile_orders.getElementsByTagName("span")[0].innerHTML = userData["parcels"]
+
+    //Dialog
+    document.getElementById("username").value = userData["username"]
+    document.getElementById("email").value = userData["email"]
+    document.getElementById("address").value = userData["address"]
+    document.getElementById("phone").value = userData["phone"]
+
+    //Save
+    dlg_box_prof = document.getElementsByClassName("dlg-box-prof")[0]
+    dlg_footer_prof = dlg_box_prof.getElementsByClassName("dlg-footer")[0]
+    dlg_footer_prof_save = dlg_footer_prof.getElementsByClassName("save")[0]
+    dlg_footer_prof_save.onclick = () => {
+        save_changes()
+    }
+
     userId = userData["userid"]
     var url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`
     // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`
@@ -19,6 +44,28 @@ window.onload = () => {
         .then(response => response.json())
         .then(data => {
             $('.list-item').remove()
+            // console.log(data)
+            delivered = 0
+            not_delivered = 0
+            in_transit = 0
+            cancelled = 0
+            data.forEach(parcel => {
+                if (parcel["status"] === "Delivered") {
+                    delivered += 1
+                } else if (parcel["status"] === "Not Delivered") {
+                    not_delivered += 1
+                } else {
+                    in_transit += 1
+                }
+                if (parcel["cancel_status"] !== "") {
+                    cancelled += 1
+                }
+            })
+            document.getElementById("dlg-deli").innerHTML = delivered
+            document.getElementById("dlg-notdeli").innerHTML = not_delivered
+            document.getElementById("dlg-intran").innerHTML = in_transit
+            document.getElementById("dlg-canc").innerHTML = cancelled
+
             data.forEach(parcel => handleParcel(parcel))
             loader.style.display = "none"
         })
@@ -76,10 +123,10 @@ handleParcel = parcel => {
 
     div_item = document.createElement("div")
     if (status === "Not Delivered") {
-        div_item.classList.add("list-item", "item-not-delivered")    
-    } else if(status === "Delivered") {
+        div_item.classList.add("list-item", "item-not-delivered")
+    } else if (status === "Delivered") {
         div_item.classList.add("list-item", "item-delivered")
-    } else if(status === "In Transit") {
+    } else if (status === "In Transit") {
         div_item.classList.add("list-item", "item-in-transit")
     }
 
@@ -182,9 +229,9 @@ handledialog = parcel => {
         dlg_footer = dlg_box_edit.getElementsByClassName("dlg-footer")[0]
         dlg_footer_cancel_order = dlg_footer.getElementsByTagName("button")[1]
         dlg_footer_make_order = dlg_footer.getElementsByTagName("button")[2]
-                
-        
-        if(cancel_status === "Cancelled"){
+
+
+        if (cancel_status === "Cancelled") {
             dlg_footer_cancel_order.style.display = "none"
             dlg_footer_make_order.style.display = "inline-block"
         } else {
@@ -255,11 +302,105 @@ handledialog = parcel => {
         dlg_footer = dlg_box_edit.getElementsByClassName("dlg-footer")[0]
         dlg_footer_cancel_order = dlg_footer.getElementsByTagName("button")[1]
         dlg_footer_make_order = dlg_footer.getElementsByTagName("button")[2]
-        
+
         dlg_footer_cancel_order.style.display = "inline-block"
         dlg_footer_make_order.style.display = "none"
-        
+
         $('.dlg-wrapper-edit').fadeIn();
         $('.dlg-box-edit').fadeIn();
     }
+}
+
+save_changes = () => {
+    event.preventDefault()
+    username = document.getElementById("username").value
+    email = document.getElementById("email").value
+    address = document.getElementById("address").value
+    phone = document.getElementById("phone").value
+    old_password = document.getElementById("old-password").value
+    new_password = document.getElementById("new-password").value
+    confirm_password = document.getElementById("confirm-password").value
+
+    if (username.trim() === "") {
+        err_element = document.getElementById("error-one")
+        err_element.innerHTML = "Username field cannot be empty"
+        return false
+    } else if (email.trim() === "") {
+        err_element = document.getElementById("error-one")
+        err_element.innerHTML = "Email field cannot be empty"
+        return false
+    } else if (phone.trim() === "") {
+        err_element = document.getElementById("error-one")
+        err_element.innerHTML = "Phone field cannot be empty"
+        return false
+    } else if (address.trim() === "") {
+        err_element = document.getElementById("error-one")
+        err_element.innerHTML = "Address field cannot be empty"
+        return false
+    }
+
+    var format = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(format)) {
+
+    } else {
+        err_element = document.getElementById("error-one")
+        err_element.innerHTML = "Please provide a valid email"
+        return false
+    }
+
+    if (old_password.trim() !== "") {
+        if (old_password !== userData["password"]) {
+            err_element = document.getElementById("error-one")
+            err_element.innerHTML = "That is not your old password"
+            return false
+        }
+        if (new_password.trim() === "") {
+            err_element = document.getElementById("error-one")
+            err_element.innerHTML = "Enter your new password"
+            return false
+        }
+        if (confirm_password.trim() === "") {
+            err_element = document.getElementById("error-one")
+            err_element.innerHTML = "Confirm your new password"
+            return false
+        }
+        if (confirm_password.trim() !== new_password.trim()) {
+            err_element = document.getElementById("error-one")
+            err_element.innerHTML = "Your passwords don't match"
+            return false
+        }
+    }
+
+
+    const auth = `Bearer ${localStorage.getItem("token")}`
+    // const edit_url = `http://127.0.0.1:5000/api/v2/users/${userId}/edit`
+    const edit_url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/edit`
+    const edit_data = {
+        username,
+        email,
+        address,
+        phone,
+        password: new_password
+    }
+
+    console.log(edit_data)
+
+    fetch(edit_url, {
+            method: "PUT",
+            body: JSON.stringify(edit_data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": auth
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+
+   
+    $('.dlg-wrapper-prof').fadeOut();
+    $('.dlg-box-prof').fadeOut();
+
+    $('.dlg-wrapper-alert').fadeIn();
+    $('.dlg-box-alert').fadeIn()
+
 }

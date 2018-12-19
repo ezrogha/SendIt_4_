@@ -11,6 +11,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" media="screen" href="css/delivery_orders.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="./admin/css/dialog.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/profile.css" />
   <script src="js/fetchscripts/redirect_out.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="js/delivery_orders.js"></script>
@@ -67,55 +68,6 @@
       </div>
     </div>
   </div>
-  <!-- In transit -->
-  <!-- <div class="dlg-wrapper-transit">
-    <div class="dlg-box-transit">
-      <div class="dlg-header">
-        <span>Edit Order: 0182</span>
-        <span style="float: right">Date:</span>
-      </div>
-      <div class="dlg-body-transit">
-        <div>
-          <span>From:</span>
-          <select disabled id="from-transit">
-            <option>Kampala, Uganda</option>
-          </select>
-          <span> To:</span>
-          <select id="to-transit">
-            <option value="Mbale, Uganda">Mbale, Uganda</option>
-            <option value="Kampala, Uganda">Kampala, Uganda</option>
-            <option value="Mbarara, Uganda">Mbarara, Uganda</option>
-            <option value="Gulu, Uganda">Gulu, Uganda</option>
-            <option value="Nairobi, Kenya">Nairobi, Kenya</option>
-            <option value="Kisumu, Kenya">Kisumu, Kenya</option>
-            <option value="Dar es salaam, Tanzania">Dar es salaam, Tanzania</option>
-            <option value="Dodoma, Tanzania">Dodoma, Tanzania</option>
-          </select>
-        </div>
-        <div>
-          <span>Weight (in Kg): </span>
-          <input value="1.2" size="5" disabled id="weight-transit" />
-          <span>Price (in USD):</span>
-          <input value="32" size="5" disabled id="price-transit" />
-        </div>
-        <div>
-          <span>Status: </span>
-          <select id="status-transit">
-            <option>Not Delivered</option>
-          </select>
-        </div>
-        <div>
-          <span>Current location: </span>
-          <input value="" disabled id="location-transit" />
-        </div>
-      </div>
-      <div class="dlg-footer">
-        <button class="btn">Cancel</button>
-        <a href="#" class="btn a">Save</a>
-        <button class="btn">Cancel Order</button>
-      </div>
-    </div>
-  </div> -->
 
   <div class="dlg-wrapper">
     <div class="dlg-box">
@@ -156,6 +108,61 @@
       </div>
     </div>
   </div>
+
+  <!-- Dlg Wrapper Profile -->
+  <div class="dlg-wrapper-prof">
+    <div class="dlg-box-prof">
+      <div class="dlg-header">
+        <span>Edit Profile</span>
+      </div>
+      <div class="dlg-body">
+        <div>
+          <span>Username:</span><br />
+          <input type="text" name="username" id="username" /><br />
+          <span>Email:</span><br />
+          <input type="text" name="email" id="email" /><br />
+        </div>
+        <div>
+          <span>Address: </span><br />
+          <input type="text" name="address" id="address" /><br />
+          <span>Phone:</span><br />
+          <input type="text" name="phone" id="phone" /><br />
+        </div>
+        <span id="error-one"></span><br />
+        <span><a href="#" id="change-pass-text">Change Password</a></span>
+        <div id="change-pass">
+          <span>Old Password: </span>
+          <input type="password" name="old-password" id="old-password" /><br />
+          <span>New Password: </span>
+          <input type="password" name="new-password" id="new-password" /><br />
+          <span>Confirm Password: </span>
+          <input type="password" name="confirm-password" id="confirm-password" /><br />
+        </div>
+      </div>
+      <div class="dlg-footer">
+        <button class="btn save">Save</button>
+        <button class="btn cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="dlg-wrapper-alert">
+    <div class="dlg-box-alert">
+      <div class="dlg-header">
+        <span>Notification</span>
+      </div>
+      <div class="dlg-body">
+        <div>
+          <span>Your changes are successfull, but will take effect after your next login</span>
+        </div>
+      </div>
+      <div class="dlg-footer">
+        <button class="btn ok">Ok</button>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <nav>
       <a href="order.html"><img src="images/nav_logo.png" class="logo" /></a>
@@ -173,6 +180,29 @@
     </nav>
 
     <div class="order-list">
+      <div id="profile-container">
+        <div id="inner">
+          <img src="images/DefaultProfileImage.png" alt="Profile" class="profile" id="profile" title="Click to View Profile" />
+          <div id="profile-dialog" class="profile-dialog">
+            <h3>Profile</h3>
+            <span class="dlg-inner">Name: <span id="dlg-name">Timbiti Roghashin</span></span> <br />
+            <span class="dlg-inner">Email: <span id="dlg-email">rtimbiti@gmail.com</span></span> <br />
+            <span class="dlg-inner">address: <span id="dlg-address">Nsambya, Kampala</span></span> <br />
+            <span class="dlg-inner">Phone: <span id="dlg-phone">0777579402</span></span> <br />
+            <span><a href="#" id="dlg-edit">Edit Profile</a></span>
+            <hr />
+            <span class="dlg-inner">Delivered: <span id="dlg-deli"></span></span> <br />
+            <span class="dlg-inner">In Transit: <span id="dlg-intran"></span></span> <br />
+            <span class="dlg-inner">Not Delivered: <span id="dlg-notdeli"></span></span> <br />
+            <span class="dlg-inner">Cancelled: <span id="dlg-canc"></span></span> <br />
+          </div>
+        </div>
+        <div id="other">
+          <span id="profile-name">Name: <span></span></span><br />
+          <span id="profile-orders">Orders: <span></span></span><br />
+          <!-- <span><a href="#" class="dlg-edit">Edit Profile</a></span><br /> -->
+        </div>
+      </div>
       <div class="search-box">
         <input type="text" placeholder="Search by OrderId" id="search_orders" />
         <button>

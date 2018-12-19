@@ -1,4 +1,4 @@
-.dlg-wrapper, .dlg-wrapper-edit {
+.dlg-wrapper, .dlg-wrapper-edit, .dlg-wrapper-prof, .dlg-wrapper-alert {
   display: none;
   position: fixed;
   width: 100%;
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.dlg-box, .dlg-box-edit {
+.dlg-box, .dlg-box-edit, .dlg-box-prof, .dlg-box-alert {
   display: none;
   /* opacity: 0; */
   position: fixed;
@@ -21,6 +21,19 @@
   color: #444;
   font-size: 18px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+}
+
+.dlg-box-prof {
+  width: 300px;
+}
+
+.dlg-box-prof span {
+  font-size: 0.9em
+}
+
+.dlg-box-prof input {
+  width: 100%;
+  margin-bottom: 3px;
 }
 
 .dlg-footer::selection, .dlg-footer .btn::selection {
@@ -44,6 +57,10 @@
   letter-spacing: 1px;
   padding: 10px;
   font-size: 15px
+}
+
+.dlg-box-prof .dlg-body {
+  height: 330px
 }
 
 .dlg-body-edit div, .dlg-body div, .dlg-body-transit div {
