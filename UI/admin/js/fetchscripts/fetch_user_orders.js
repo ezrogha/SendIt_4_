@@ -5,6 +5,7 @@ window.onload = () => {
 
     currentUser = JSON.parse(localStorage.getItem("selectedUser"))
     userId = currentUser["userid"]
+    console.log(currentUser)
 
     profile_name = document.getElementById("profile-name")
     profile_name.getElementsByTagName("span")[0].innerHTML = currentUser["username"]
@@ -74,7 +75,7 @@ window.onload = () => {
         val = event.target.value
         if (val.trim() === "" || isNaN(val.trim())) {
             // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`;
-            var url = "https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`;
+            var url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`;
             method = "GET"
         } else {
             new_val = val.trim()
