@@ -1,4 +1,4 @@
-.dlg-wrapper, .dlg-wrapper-edit, .dlg-wrapper-prof, .dlg-wrapper-alert {
+.dlg-wrapper, .dlg-wrapper-edit, .dlg-wrapper-prof, .dlg-wrapper-email, .dlg-wrapper-emailconfirm .dlg-wrapper-alert {
   display: none;
   position: fixed;
   width: 100%;
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.dlg-box, .dlg-box-edit, .dlg-box-prof, .dlg-box-alert {
+.dlg-box, .dlg-box-edit, .dlg-box-prof, .dlg-box-email, .dlg-box-emailconfirm, .dlg-box-alert {
   display: none;
   /* opacity: 0; */
   position: fixed;
@@ -102,6 +102,10 @@
 
 .txt {
   color: #00f
+}
+
+#subject, #body {
+  width: 100%
 }
 
 .marg .list-col {

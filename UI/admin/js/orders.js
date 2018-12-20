@@ -5,8 +5,12 @@ $(document).on('click', '.icon-style, .a', function (event) {
     $(document).ready(function () {
       $('.dlg-wrapper').hide()
       $('.dlg-wrapper-edit').hide()
+      $('.dlg-wrapper-email').hide()
+      $('.dlg-wrapper-emailconfirm').hide()
       $('.dlg-box').hide();
       $('.dlg-box-edit').hide();
+      $('.dlg-box-email').hide();
+      $('.dlg-box-emailconfirm').hide();
 
       //Cancel Delete
       $('.dlg-footer button').click(function () {
@@ -57,6 +61,30 @@ $(document).on('click', '.icon-style, .a', function (event) {
           .removeClass('show_dropdown');
       })
 
+      $(".profile").click(function(){
+        $("#profile-dialog").toggleClass("show_dialogg")
+      })
+    
+      $(this).click(function(e){
+        $('#inner')
+          .not($('#inner').has($(e.target)))
+          .children('#profile-dialog')
+          .removeClass('show_dialogg');
+      })
+
+      // Open Send Email
+      $('#dlg-edit').click(function() {
+        event.preventDefault()
+        $('.dlg-wrapper-email').fadeIn();
+        $('.dlg-box-email').fadeIn();
+      })
+
+      // Cancel Email
+      $('#cancel-email-btn').click(function(){
+        $('.dlg-wrapper-email').fadeOut();
+        $('.dlg-box-email').fadeOut();
+      })
+
       // Display all Orders made
       $('.dropdown .all').click(function () {
         $('.list-item').show();
@@ -72,6 +100,12 @@ $(document).on('click', '.icon-style, .a', function (event) {
       $('.dropdown .not-delivered').click(function () {
         $('.item-not-delivered').show();
         $('.item-delivered').hide();
+      })
+
+      // Cancel Email Confirm
+      $('#dlg-emailconfirm-btn').click(function(){
+        $('.dlg-wrapper-emailconfirm').fadeOut()
+        $('.dlg-box-emailconfirm').fadeOut()
       })
 
       //Nav Menu dropdown

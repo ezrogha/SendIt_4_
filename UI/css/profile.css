@@ -61,7 +61,7 @@ h3 {
 }
 
 #inner:hover {
-  outline: 2px solid rgba(151, 241, 151, .6);
+  outline: 4px solid rgba(151, 241, 151, .6);
 }
 
 .show_dialogg {

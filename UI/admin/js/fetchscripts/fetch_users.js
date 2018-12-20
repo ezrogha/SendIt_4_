@@ -21,7 +21,15 @@ window.onload = () => {
         })
         .then(response => response.json())
         .then(data => {
+            $('#none').remove()
             $('.list-item').remove()
+            if (data.length == 0) {
+                order_list = document.getElementsByClassName("order-list")[0]
+                noneDiv = document.createElement("div")
+                noneDiv.setAttribute("id", "none")
+                noneDiv.innerHTML = "No users currently available"
+                order_list.appendChild(noneDiv)
+            }
             data.forEach(user => {
                 if (user["role"] !== "admin") {
                     handleUser(user);
@@ -41,7 +49,7 @@ window.onload = () => {
             new_val = val.trim()
             low_val = new_val.toLowerCase()
             // var url = `http://127.0.0.1:5000/api/v2/user/${low_val}`;
-            var url = `https://sendit-updated.herokuapp.com/api/v2/user/${val}`;
+            var url = `https://sendit-updated.herokuapp.com/api/v2/user/${low_val}`;
             method = "PUT"
         }
         const auth = `Bearer ${localStorage.getItem("token")}`;
@@ -55,7 +63,15 @@ window.onload = () => {
             })
             .then(response => response.json())
             .then(data => {
+                $('#none').remove()
                 $('.list-item').remove()
+                if (data.length == 0) {
+                    order_list = document.getElementsByClassName("order-list")[0]
+                    noneDiv = document.createElement("div")
+                    noneDiv.setAttribute("id", "none")
+                    noneDiv.innerHTML = "No users currently available"
+                    order_list.appendChild(noneDiv)
+                }
                 data.forEach(user => {
                     if (user["role"] !== "admin") {
                         handleUser(user);
@@ -138,16 +154,32 @@ handleUser = user => {
         icon_user.setAttribute("title", "Activate");
         icon_user.classList.add("fas", "fa-user-check");
     }
+    a_icon2 = document.createElement("a");
+    a_icon2.setAttribute("href", "#");
+    a_icon2.classList.add("icon-style", "trash");
+    icon_user2 = document.createElement("icon");
+    icon_user2.setAttribute("title", "View Parcels");
+    icon_user2.classList.add("fa", "fa-eye");
+
     a_icon.appendChild(icon_user);
+    a_icon2.appendChild(icon_user2);
     div_icon.appendChild(a_icon);
+    div_icon.appendChild(a_icon2);
     div_item.appendChild(div_icon);
     order_list.appendChild(div_item);
+
+
 
     a_icon.onclick = () => {
         event.preventDefault()
         handleDlg(user)
         $(".dlg-wrapper").fadeIn()
         $(".dlg-box").fadeIn()
+    }
+
+    a_icon2.onclick = () => {
+        event.preventDefault()
+        userParcels(user)
     }
 
 };
@@ -167,4 +199,10 @@ handleDlg = user => {
         dlg_header.innerHTML = "Confirm Activation"
         dlg_body.innerHTML = `Are you sure you want to <i style='color: green'>activate</i> <span>${userId}</span>:${username}'s account?`
     }
+}
+
+userParcels = (user) => {
+    // userId = user["userid"]
+    localStorage.setItem("selectedUser", JSON.stringify(user))
+    window.location.href = "./userparcels.html"
 }

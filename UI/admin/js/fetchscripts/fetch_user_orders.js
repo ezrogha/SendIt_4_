@@ -3,8 +3,24 @@ window.onload = () => {
     data = JSON.parse(atob(token.split(".")[1]));
     userData = data["identity"];
 
-    // var url = "http://127.0.0.1:5000/api/v2/parcels";
-    const url = "https://sendit-updated.herokuapp.com/api/v2/parcels";
+    currentUser = JSON.parse(localStorage.getItem("selectedUser"))
+    userId = currentUser["userid"]
+
+    profile_name = document.getElementById("profile-name")
+    profile_name.getElementsByTagName("span")[0].innerHTML = currentUser["username"]
+    document.getElementById("dlg-name").innerHTML = currentUser["username"]
+    document.getElementById("dlg-email").innerHTML = currentUser["email"]
+    document.getElementById("dlg-address").innerHTML = currentUser["address"]
+    document.getElementById("dlg-phone").innerHTML = currentUser["phone"]
+    document.getElementById("dlg-edit").innerHTML = `Mail ${currentUser["username"]}`
+    document.getElementById("body").value = `Hello ${currentUser["username"]},`
+
+    profile_orders = document.getElementById("profile-orders")
+    profile_orders.getElementsByTagName("span")[0].innerHTML = currentUser["parcels"]
+
+
+    // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`;
+    const url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`
     const auth = `Bearer ${localStorage.getItem("token")}`;
     loader = document.getElementById("loader")
     loader.style.display = "block"
@@ -17,7 +33,6 @@ window.onload = () => {
         })
         .then(response => response.json())
         .then(data => {
-            $('#none').remove()
             $('.list-item').remove()
             if (data.length == 0) {
                 order_list = document.getElementsByClassName("order-list")[0]
@@ -26,9 +41,30 @@ window.onload = () => {
                 noneDiv.innerHTML = "No orders currently available"
                 order_list.appendChild(noneDiv)
             }
+            delivered = 0
+            not_delivered = 0
+            in_transit = 0
+            cancelled = 0
+            data.forEach(parcel => {
+                if (parcel["status"] === "Delivered") {
+                    delivered += 1
+                } else if (parcel["status"] === "Not Delivered") {
+                    not_delivered += 1
+                } else {
+                    in_transit += 1
+                }
+                if (parcel["cancel_status"] !== "") {
+                    cancelled += 1
+                }
+            })
+            document.getElementById("dlg-deli").innerHTML = delivered
+            document.getElementById("dlg-notdeli").innerHTML = not_delivered
+            document.getElementById("dlg-intran").innerHTML = in_transit
+            document.getElementById("dlg-canc").innerHTML = cancelled
+
+            loader.style.display = "none"
             data.forEach(parcel => {
                 handleParcel(parcel);
-                loader.style.display = "none"
             });
         })
         .catch(err => console.log(err))
@@ -37,14 +73,14 @@ window.onload = () => {
     search_input.onkeyup = (event) => {
         val = event.target.value
         if (val.trim() === "" || isNaN(val.trim())) {
-            // var url = `http://127.0.0.1:5000/api/v2/parcels`;
-            var url = "https://sendit-updated.herokuapp.com/api/v2/parcels";
+            // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcels`;
+            var url = "https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcels`;
             method = "GET"
         } else {
             new_val = val.trim()
             // int_val = parseInt(new_val)
-            // var url = `http://127.0.0.1:5000/api/v2/parcel/${new_val}`;
-            var url = `https://sendit-updated.herokuapp.com/api/v2/parcel/${new_val}`;
+            // var url = `http://127.0.0.1:5000/api/v2/users/${userId}/parcel/${new_val}`
+            var url = `https://sendit-updated.herokuapp.com/api/v2/users/${userId}/parcel/${new_val}`
             method = "PUT"
         }
         const auth = `Bearer ${localStorage.getItem("token")}`;
@@ -58,21 +94,53 @@ window.onload = () => {
             })
             .then(response => response.json())
             .then(data => {
-                $('#none').remove()
                 $('.list-item').remove()
-                if (data.length == 0) {
-                    order_list = document.getElementsByClassName("order-list")[0]
-                    noneDiv = document.createElement("div")
-                    noneDiv.setAttribute("id", "none")
-                    noneDiv.innerHTML = "No orders currently available"
-                    order_list.appendChild(noneDiv)
-                }
                 data.forEach(parcel => {
                     if (parcel["role"] !== "admin") {
                         handleParcel(parcel);
                     }
                 });
             });
+    }
+
+    sendEmail = document.getElementById("send-email-btn")
+    sendEmail.onclick = () => {
+        subject = document.getElementById("subject")
+        body = document.getElementById("body")
+        if (subject.value == "") {
+            document.getElementById("Error-msg").innerHTML = "Subject can't be empty"
+            return false
+        } else if (body.value == "") {
+            document.getElementById("Error-msg").innerHTML = "Body can't be empty"
+            return false
+        }
+
+
+        const emailData = {
+            email: currentUser["email"],
+            subject: subject.value,
+            body: body.value
+        }
+
+        // const emailurl = "http://127.0.0.1:5000/api/v2/admin/user/mail"
+        const url = "https://sendit-updated.herokuapp.com/api/v2/admin/user/mail"
+
+        fetch(emailurl, {
+                method: "POST",
+                body: JSON.stringify(emailData),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": auth
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data["message"])
+            })
+
+        $(".dlg-wrapper-email").fadeOut()
+        $(".dlg-box-email").fadeOut()
+
     }
 
 };

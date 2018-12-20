@@ -43,8 +43,15 @@ window.onload = () => {
         })
         .then(response => response.json())
         .then(data => {
+            $('#none').remove()
             $('.list-item').remove()
-            // console.log(data)
+            if (data.length == 0) {
+                order_list = document.getElementsByClassName("order-list")[0]
+                noneDiv = document.createElement("div")
+                noneDiv.setAttribute("id", "none")
+                noneDiv.innerHTML = "No orders currently available"
+                order_list.appendChild(noneDiv)
+            }
             delivered = 0
             not_delivered = 0
             in_transit = 0
@@ -96,7 +103,15 @@ window.onload = () => {
             })
             .then(response => response.json())
             .then(data => {
+                $('#none').remove()
                 $('.list-item').remove()
+                if (data.length == 0) {
+                    order_list = document.getElementsByClassName("order-list")[0]
+                    noneDiv = document.createElement("div")
+                    noneDiv.setAttribute("id", "none")
+                    noneDiv.innerHTML = "No orders currently available"
+                    order_list.appendChild(noneDiv)
+                }
                 data.forEach(parcel => {
                     if (parcel["role"] !== "admin") {
                         handleParcel(parcel);
@@ -396,7 +411,7 @@ save_changes = () => {
         .then(response => response.json())
         .then(data => console.log(data))
 
-   
+
     $('.dlg-wrapper-prof').fadeOut();
     $('.dlg-box-prof').fadeOut();
 

@@ -7,7 +7,8 @@
   <title>Admin: SendIT - Users</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" type="image/png" href="../images/favicon.png" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" media="screen" href="css/orders.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="css/dialog.css" />
   <script src="js/fetchscripts/fetch_users.js"></script>
@@ -16,6 +17,16 @@
   <style>
     .list-col {
       margin: 0 5px 0 0
+    }
+    @media screen and (max-width: 816px){
+      .order-list {
+        width: 100%;
+      }
+    }
+    @media screen and (max-width: 666px){
+      .list-col-icon {
+        display: none;
+      }
     }
     
   </style>
@@ -36,7 +47,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="container">
     <nav>
       <a href="index.html"><img src="../images/nav_logo.png" class="logo" /></a>
